@@ -1,20 +1,100 @@
 ---
 // src/pages/index.astro
 import Layout from "../components/Layout.astro";
+import "../styles/global.css";
 import "../styles/styles.css";
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.png?v=2" type="image/png" />
+    <link rel="apple-touch-icon" href="/favicon.png?v=2" />
+
+    <!-- PWA Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="corregi.me" />
+
+    <!-- Primary Meta Tags -->
     <title>corregi.me</title>
+    <meta name="title" content="corregi.me | Corrección de textos en español" />
+    <meta
+      name="description"
+      content="Herramienta gratuita para corregir textos en español. Mejora tus emails y mensajes con correcciones gramaticales y de estilo."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://corregi.me/" />
+    <meta
+      property="og:title"
+      content="corregi.me | Corrección de textos en español"
+    />
+    <meta
+      property="og:description"
+      content="Herramienta gratuita para corregir textos en español. Mejora tus emails y mensajes con correcciones gramaticales y de estilo."
+    />
+    <meta property="og:image" content="/favicon.png?v=2" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://corregi.me/" />
+    <meta
+      property="twitter:title"
+      content="corregi.me | Corrección de textos en español"
+    />
+    <meta
+      property="twitter:description"
+      content="Herramienta gratuita para corregir textos en español. Mejora tus emails y mensajes con correcciones gramaticales y de estilo."
+    />
+    <meta property="twitter:image" content="/favicon.png?v=2" />
+
+    <!-- Geo Targeting -->
+    <meta name="geo.region" content="UY-MO" />
+    <meta name="geo.placename" content="Montevideo" />
+    <meta name="geo.position" content="-34.9011;-56.1645" />
+    <meta name="ICBM" content="-34.9011, -56.1645" />
+
+    <!-- Additional Meta -->
+    <meta
+      name="keywords"
+      content="corrección de textos, gramática española, corrector ortográfico, Uruguay, Argentina, español rioplatense, corrector gramatical"
+    />
+    <meta name="author" content="corregi.me" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Spanish" />
+
+    <!-- Accessibility -->
+    <meta name="theme-color" content="#081711" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
   </head>
-  <body>
+  <body class="min-h-screen h-full">
     <Layout />
     <script>
-      import "../scripts/scripts";
+      import "../scripts/scripts.ts";
+
+      // Desregistrar cualquier Service Worker existente
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .getRegistrations()
+          .then(function (registrations) {
+            for (let registration of registrations) {
+              registration.unregister();
+              console.log("Service Worker desregistrado");
+            }
+          });
+      }
     </script>
   </body>
 </html>

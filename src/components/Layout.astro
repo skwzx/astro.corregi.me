@@ -1,36 +1,14 @@
 ---
-
+import "../styles/global.css";
+import Header from "./Header.astro";
+import CorrectionForm from "./CorrectionForm.astro";
+import Footer from "./Footer.astro";
 ---
 
-<div class="layout">
-  <div class="title">
-    <h1>corregi.me</h1>
-    <p>Corrector Inteligente de Textos y Emails</p>
-  </div>
-  <div class="container">
-    <div class="input-section">
-      <form id="correctionForm">
-        <textarea
-          id="textInput"
-          placeholder="Ingresa el texto a corregir"
-          maxlength="300"></textarea>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="type" value="mail" checked /> Mail
-          </label>
-          <label>
-            <input type="radio" name="type" value="message" /> Mensaje
-          </label>
-        </div>
-        <button type="submit">Corregir</button>
-      </form>
-    </div>
-    <div id="resultContainer" class="result-section" hidden>
-      <div class="result">
-        <h3>Texto Corregido:</h3>
-        <p id="correctedText"></p>
-      </div>
-    </div>
-  </div>
-  <div id="errorContainer" class="error" hidden></div>
+<div
+  class="bg-primaryGreen text-white p-6 min-h-screen flex flex-col justify-between"
+>
+  <Header />
+  <CorrectionForm />
+  <Footer />
 </div>
