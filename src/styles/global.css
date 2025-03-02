@@ -1,6 +1,27 @@
 /* Import Noto Sans from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap');
 
+/* Variables CSS */
+:root {
+  --primary-green: #081711;
+}
+
+html {
+  background-color: var(--primary-green);
+  height: 100%;
+}
+
+body {
+  background-color: var(--primary-green);
+  min-height: 100%;
+  height: 100%;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
