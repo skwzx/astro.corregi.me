@@ -42,7 +42,7 @@ if (!form) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text,
-          mail: type === "mail" ? "mail" : "message",
+          type: type === "mail" ? "mail" : "message",
         }),
       });
 
