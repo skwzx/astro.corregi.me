@@ -1,0 +1,7 @@
+# robots.txt for corregi.me
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://corregi.me/sitemap.xml

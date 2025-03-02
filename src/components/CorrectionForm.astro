@@ -1,0 +1,195 @@
+---
+// CorrectionForm component for the text correction form and its container
+import ResultDisplay from "./ResultDisplay.astro";
+---
+
+<div
+  class="max-w-4xl w-full mx-auto bg-neutral-800 p-4 pb-1 shadow-xl prose rounded-3xl flex flex-col"
+>
+  <div class="mb-0">
+    <form id="correctionForm" class="flex flex-col items-center">
+      <div class="w-full relative">
+        <textarea
+          id="textInput"
+          class="resize-none w-full p-4 pb-14 bg-neutral-800 rounded-t-lg focus:outline-none focus:border-secondaryGreen text-white placeholder-gray-400 min-h-[100px] max-h-[500px] overflow-y-auto"
+          placeholder="Ingresa el texto a corregir"
+          maxlength="10000"></textarea>
+
+        <!-- Bottom toolbar with purpose selector and submit button -->
+        <div
+          class="absolute bottom-0 left-0 right-0 flex items-center justify-between py-3 px-1 border-t border-zinc-700 rounded-b-lg bg-neutral-800"
+        >
+          <!-- Purpose selector styled as a segmented control with tooltip -->
+          <div class="flex items-center">
+            <div class="flex bg-zinc-700 rounded-lg p-1">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  name="type"
+                  value="message"
+                  checked
+                  class="sr-only peer"
+                />
+                <span
+                  class="px-3 py-1 text-sm rounded-lg peer-checked:bg-secondaryGreen peer-checked:text-white text-gray-300 transition-colors"
+                  >Mensaje</span
+                >
+              </label>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  name="type"
+                  value="mail"
+                  class="sr-only peer"
+                />
+                <span
+                  class="px-3 py-1 text-sm rounded-lg peer-checked:bg-secondaryGreen peer-checked:text-white text-gray-300 transition-colors"
+                  >Mail</span
+                >
+              </label>
+            </div>
+
+            <!-- Tooltip icon and content -->
+            <div class="relative ml-2 flex items-center h-full group">
+              <button
+                type="button"
+                class="text-gray-400 hover:text-gray-300 focus:outline-none flex items-center"
+                aria-label="Información sobre propósito"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-5 h-5"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <div
+                class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-zinc-700 text-white text-xs rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10 flex items-center justify-center"
+              >
+                <div class="relative text-center">
+                  <p>Selecciona "Mail" para un tono formal</p>
+                  <div
+                    class="absolute w-3 h-3 bg-zinc-700 transform rotate-45 left-1/2 -ml-1.5 -bottom-1.5"
+                  >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Send button and loading spinner -->
+          <div>
+            <button
+              id="submitButton"
+              type="submit"
+              class="p-2 rounded-lg bg-secondaryGreen hover:bg-primaryGreen focus:outline-none focus:ring-2 focus:ring-complementaryGreen transition-colors"
+              aria-label="Corregir texto"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-5 h-5 text-white"
+              >
+                <path
+                  d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- Loading spinner (hidden by default) -->
+            <div
+              id="loadingSpinner"
+              class="hidden p-2 rounded-lg bg-secondaryGreen"
+            >
+              <svg
+                class="animate-spin w-5 h-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Import the ResultDisplay component -->
+  <ResultDisplay />
+</div>
+
+<script>
+  import { initTextareaAutoResize } from "../scripts/textareaAutoResize";
+
+  // Initialize the textarea auto-resize functionality
+  initTextareaAutoResize();
+
+  // Handle form submission and loading state
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("correctionForm");
+    const submitButton = document.getElementById("submitButton");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+    const resultContainer = document.getElementById("resultContainer");
+    const errorContainer = document.getElementById("errorContainer");
+
+    if (form && submitButton && loadingSpinner) {
+      form.addEventListener("submit", (e) => {
+        // Show loading spinner and hide submit button
+        submitButton.classList.add("hidden");
+        loadingSpinner.classList.remove("hidden");
+
+        // Prevent multiple submissions
+        if (submitButton instanceof HTMLButtonElement) {
+          submitButton.disabled = true;
+        }
+      });
+
+      // Observer to detect when results are displayed
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (
+            mutation.type === "attributes" &&
+            mutation.attributeName === "style"
+          ) {
+            const target = mutation.target as HTMLElement;
+            if (target.style.display !== "none") {
+              // Results are now visible, restore the submit button
+              submitButton.classList.remove("hidden");
+              loadingSpinner.classList.add("hidden");
+              if (submitButton instanceof HTMLButtonElement) {
+                submitButton.disabled = false;
+              }
+            }
+          }
+        });
+      });
+
+      // Observe both result and error containers for style changes
+      if (resultContainer) {
+        observer.observe(resultContainer, { attributes: true });
+      }
+      if (errorContainer) {
+        observer.observe(errorContainer, { attributes: true });
+      }
+    }
+  });
+</script>
