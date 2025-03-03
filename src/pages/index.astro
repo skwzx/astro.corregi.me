@@ -9,10 +9,7 @@ import "../styles/styles.css";
 <html lang="es" class="h-full bg-primaryGreen">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon -->
     <link rel="icon" href="/favicon.png?v=2" type="image/png" />
@@ -82,10 +79,32 @@ import "../styles/styles.css";
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
   </head>
-  <body class="bg-primaryGreen min-h-screen h-full">
+  <body class="bg-primaryGreen min-h-screen h-full text-white">
     <Layout />
     <script>
       import "../scripts/scripts.ts";
+
+      // Handle back/forward cache restoration
+      window.addEventListener("pageshow", (event) => {
+        // If the page is loaded from the bfcache
+        if (event.persisted) {
+          // Reset form state if needed
+          const form = document.getElementById(
+            "correctionForm"
+          ) as HTMLFormElement;
+          const submitButton = document.getElementById("submitButton");
+          const loadingSpinner = document.getElementById("loadingSpinner");
+
+          if (form) form.reset();
+          if (submitButton && loadingSpinner) {
+            submitButton.classList.remove("hidden");
+            loadingSpinner.classList.add("hidden");
+            if (submitButton instanceof HTMLButtonElement) {
+              submitButton.disabled = false;
+            }
+          }
+        }
+      });
 
       // Desregistrar cualquier Service Worker existente
       if ("serviceWorker" in navigator) {
