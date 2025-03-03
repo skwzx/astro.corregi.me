@@ -11,9 +11,9 @@ import ResultDisplay from "./ResultDisplay.astro";
       <div class="w-full relative">
         <textarea
           id="textInput"
-          class="resize-none w-full p-4 pb-14 bg-neutral-800 rounded-t-lg focus:outline-none focus:border-secondaryGreen text-white placeholder-gray-400 min-h-[100px] max-h-[500px] overflow-y-auto"
+          class="resize-none w-full p-4 pb-14 bg-neutral-800 rounded-t-lg focus:outline-none focus:border-secondaryGreen text-white placeholder-gray-300 min-h-[100px] max-h-[500px] overflow-y-auto"
           placeholder="Ingresa el texto a corregir"
-          maxlength="10000"></textarea>
+          maxlength="3000"></textarea>
 
         <!-- Bottom toolbar with purpose selector and submit button -->
         <div
@@ -31,7 +31,7 @@ import ResultDisplay from "./ResultDisplay.astro";
                   class="sr-only peer"
                 />
                 <span
-                  class="px-3 py-1 text-sm rounded-lg peer-checked:bg-secondaryGreen peer-checked:text-white text-gray-300 transition-colors"
+                  class="px-3 py-1 text-sm rounded-lg peer-checked:bg-secondaryGreen peer-checked:text-white text-gray-200 transition-colors"
                   >Mensaje</span
                 >
               </label>
@@ -43,7 +43,7 @@ import ResultDisplay from "./ResultDisplay.astro";
                   class="sr-only peer"
                 />
                 <span
-                  class="px-3 py-1 text-sm rounded-lg peer-checked:bg-secondaryGreen peer-checked:text-white text-gray-300 transition-colors"
+                  class="px-3 py-1 text-sm rounded-lg peer-checked:bg-secondaryGreen peer-checked:text-white text-gray-200 transition-colors"
                   >Mail</span
                 >
               </label>
@@ -53,7 +53,7 @@ import ResultDisplay from "./ResultDisplay.astro";
             <div class="relative ml-2 flex items-center h-full group">
               <button
                 type="button"
-                class="text-gray-400 hover:text-gray-300 focus:outline-none flex items-center"
+                class="text-gray-300 hover:text-gray-200 focus:outline-none flex items-center"
                 aria-label="Información sobre propósito"
               >
                 <svg
@@ -150,6 +150,9 @@ import ResultDisplay from "./ResultDisplay.astro";
     const loadingSpinner = document.getElementById("loadingSpinner");
     const resultContainer = document.getElementById("resultContainer");
     const errorContainer = document.getElementById("errorContainer");
+    const textInput = document.getElementById(
+      "textInput"
+    ) as HTMLTextAreaElement;
 
     if (form && submitButton && loadingSpinner) {
       form.addEventListener("submit", (e) => {
@@ -162,6 +165,24 @@ import ResultDisplay from "./ResultDisplay.astro";
           submitButton.disabled = true;
         }
       });
+
+      // Add event listener for Enter key press in textarea
+      if (textInput) {
+        textInput.addEventListener("keydown", (e) => {
+          // Check if Enter was pressed without Shift key
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault(); // Prevent default behavior (new line)
+
+            // Only submit if there's text in the textarea
+            if (textInput.value.trim() !== "") {
+              // Trigger form submission
+              if (submitButton instanceof HTMLButtonElement) {
+                submitButton.click();
+              }
+            }
+          }
+        });
+      }
 
       // Observer to detect when results are displayed
       const observer = new MutationObserver((mutations) => {

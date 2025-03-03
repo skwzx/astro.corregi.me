@@ -3,9 +3,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primaryGreen: "#00594f",
-        secondaryGreen: "#00574D",
-        complementaryGreen: "#C04074",
+        primaryGreen: "#005045",
+        secondaryGreen: "#006B5E",
+        complementaryGreen: "#D04074",
       },
       fontFamily: {
         sans: [
