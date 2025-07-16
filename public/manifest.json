@@ -1,11 +1,13 @@
 {
-  "name": "corregi.me | Corrección de textos en español",
+  "name": "corregi.me | Corrector de Textos en Español Gratis con IA",
   "short_name": "corregi.me",
-  "description": "Herramienta gratuita para corregir textos en español. Mejora tus emails y mensajes con correcciones gramaticales y de estilo.",
-  "start_url": "/?source=pwa",
+  "description": "Corrector de textos en español con IA. Corrige gramática, ortografía y estilo GRATIS. Perfecto para emails, documentos y redes sociales.",
+  "start_url": "/?utm_source=pwa",
   "display": "standalone",
   "background_color": "#081711",
   "theme_color": "#081711",
+  "categories": ["utilities", "productivity", "education", "writing"],
+  "keywords": ["corrector", "español", "gramática", "ortografía", "IA"],
   "icons": [
     {
       "src": "/favicon.png?v=2",
@@ -22,7 +24,6 @@
   "lang": "es-UY",
   "dir": "ltr",
   "orientation": "portrait",
-  "categories": ["utilities", "productivity", "education"],
   "screenshots": [
     {
       "src": "/favicon.png?v=2",

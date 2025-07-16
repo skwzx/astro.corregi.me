@@ -80,10 +80,62 @@ import ResultDisplay from "./ResultDisplay.astro";
                 </div>
               </div>
             </div>
+
+            <!-- Privacy indicator -->
+            <div class="relative ml-2 flex items-center h-full group">
+              <button
+                type="button"
+                class="text-gray-300 hover:text-gray-200 focus:outline-none flex items-center"
+                aria-label="Información de privacidad"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm-3.75 8.25v-3a3.75 3.75 0 117.5 0v3h-7.5z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <div
+                class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 p-2 bg-zinc-700 text-white text-xs rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10 flex items-center justify-center"
+              >
+                <div class="relative text-center">
+                  <p>No guardamos ni procesamos tus textos</p>
+                  <div
+                    class="absolute w-3 h-3 bg-zinc-700 transform rotate-45 left-1/2 -ml-1.5 -bottom-1.5"
+                  >
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Send button and loading spinner -->
-          <div>
+          <div class="flex items-center gap-4">
+            <!-- Clear button -->
+            <button
+              id="clearButton"
+              type="button"
+              class="p-2 rounded-lg bg-zinc-600/80 hover:bg-red-600/80 text-gray-300 hover:text-white transition-all duration-200 opacity-0 invisible focus:opacity-100 focus:visible focus:outline-none focus:ring-2 focus:ring-red-400"
+              aria-label="Limpiar texto"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-5 h-5"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </button>
+
             <button
               id="submitButton"
               type="submit"
@@ -153,6 +205,54 @@ import ResultDisplay from "./ResultDisplay.astro";
     const textInput = document.getElementById(
       "textInput"
     ) as HTMLTextAreaElement;
+    const clearButton = document.getElementById("clearButton");
+
+    // Clear button functionality
+    if (clearButton && textInput) {
+      clearButton.addEventListener("click", () => {
+        textInput.value = "";
+        textInput.focus();
+
+        // Hide results if they're visible
+        if (resultContainer) {
+          resultContainer.style.display = "none";
+        }
+        if (errorContainer) {
+          errorContainer.style.display = "none";
+        }
+
+        // Trigger resize to reset textarea height
+        const resizeEvent = new Event("input");
+        textInput.dispatchEvent(resizeEvent);
+
+        // Hide button since there's no content
+        clearButton.style.opacity = "0";
+        clearButton.style.visibility = "hidden";
+      });
+
+      // Show/hide clear button based on content and mouse interaction
+      const updateClearButtonVisibility = () => {
+        if (textInput.value.trim().length > 0) {
+          clearButton.style.opacity = "1";
+          clearButton.style.visibility = "visible";
+        } else {
+          clearButton.style.opacity = "0";
+          clearButton.style.visibility = "hidden";
+        }
+      };
+
+      textInput.addEventListener("input", updateClearButtonVisibility);
+      textInput.addEventListener("mouseenter", updateClearButtonVisibility);
+      textInput.addEventListener("focus", updateClearButtonVisibility);
+
+      // Hide on mouse leave if empty
+      textInput.addEventListener("mouseleave", () => {
+        if (textInput.value.trim().length === 0) {
+          clearButton.style.opacity = "0";
+          clearButton.style.visibility = "hidden";
+        }
+      });
+    }
 
     if (form && submitButton && loadingSpinner) {
       form.addEventListener("submit", (e) => {
