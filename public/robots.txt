@@ -2,6 +2,29 @@
 
 User-agent: *
 Allow: /
+Crawl-delay: 1
 
-# Sitemap
+# Specific directives for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Allow access to important resources
+Allow: /favicon.png
+Allow: /favicon.svg
+Allow: /manifest.json
+Allow: /*.css
+Allow: /*.js
+
+# Sitemap location
 Sitemap: https://corregi.me/sitemap.xml
