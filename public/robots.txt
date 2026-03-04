@@ -1,4 +1,4 @@
-# robots.txt for corregi.me
+# robots.txt for corregi.app
 
 User-agent: *
 Allow: /
@@ -27,4 +27,4 @@ Allow: /*.css
 Allow: /*.js
 
 # Sitemap location
-Sitemap: https://corregi.me/sitemap.xml
+Sitemap: https://corregi.app/sitemap.xml
