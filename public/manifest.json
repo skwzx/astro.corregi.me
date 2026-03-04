@@ -1,6 +1,6 @@
 {
-  "name": "corregi.me | Corrector de Textos en Español Gratis con IA",
-  "short_name": "corregi.me",
+  "name": "corregi.app | Corrector de Textos en Español Gratis con IA",
+  "short_name": "corregi.app",
   "description": "Corrector de textos en español con IA. Corrige gramática, ortografía y estilo GRATIS. Perfecto para emails, documentos y redes sociales.",
   "start_url": "/?utm_source=pwa",
   "display": "standalone",
@@ -30,7 +30,7 @@
       "sizes": "1280x720",
       "type": "image/png",
       "platform": "wide",
-      "label": "Pantalla principal de corregi.me"
+      "label": "Pantalla principal de corregi.app"
     }
   ],
   "shortcuts": [
@@ -43,5 +43,5 @@
   "related_applications": [],
   "prefer_related_applications": false,
   "scope": "/",
-  "id": "corregi.me"
+  "id": "corregi.app"
 }

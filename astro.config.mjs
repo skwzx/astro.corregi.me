@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  site: "https://corregi.me",
+  site: "https://corregi.app",
   base: "/",
   build: {
     assets: "assets",
